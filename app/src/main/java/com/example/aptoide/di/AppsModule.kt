@@ -2,7 +2,7 @@ package com.example.aptoide.di
 
 import com.example.aptoide.repository.AppsApiRepository
 import com.example.aptoide.repository.AppsApiRepositoryImpl
-import com.example.aptoide.repository.AptoideApi
+import com.example.aptoide.repository.api.AptoideApi
 import com.example.aptoide.view.details.viewmodel.DetailsViewModel
 import com.example.aptoide.view.home.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

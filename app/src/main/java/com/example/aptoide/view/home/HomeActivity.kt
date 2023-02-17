@@ -28,7 +28,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Possible improvements:
  * - Use jetpack navigation framework to navigate between views and inject navigation on viewModel
- *
+ * - In terms of Architecture, for more complex scenarios, it's good to use Interactor or UseCase between
+ * repository and ViewModel (or presenter)
+ * - Compose Theme is as in the template and can be a lot improved in real usage scenarios
  */
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModel<HomeViewModel>()

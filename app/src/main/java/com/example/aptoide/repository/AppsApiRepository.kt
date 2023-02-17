@@ -2,6 +2,7 @@ package com.example.aptoide.repository
 
 import android.util.Log
 import com.example.aptoide.model.AppsDataset
+import com.example.aptoide.repository.api.AptoideApi
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

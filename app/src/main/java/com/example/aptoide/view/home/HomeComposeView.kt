@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -97,7 +98,6 @@ private fun HeaderWithMore(
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LocalTopAppsList(apps: List<AppInfo>) {
@@ -127,21 +127,7 @@ private fun LocalTopAppsList(apps: List<AppInfo>) {
                                 .clip(shape),
                             contentScale = ContentScale.Crop
                         )
-
-                        Text(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .height(32.dp),
-                            text = currentItem.name ?: "",
-                            color = Color.Black,
-                            style = TextStyle(
-                                fontSize = 12.sp,
-
-                                ),
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 2
-                        )
-                        RatingRow(currentItem = currentItem, textColor = Color.Black)
+                        AppNameAndRatingLocalTopApps(currentItem)
                     }
                 }
                 Spacer(
@@ -151,21 +137,39 @@ private fun LocalTopAppsList(apps: List<AppInfo>) {
                 )
             })
         }
-
     }
+}
+
+@Composable
+private fun AppNameAndRatingLocalTopApps(currentItem: AppInfo) {
+    Text(
+        modifier = Modifier
+            .padding(top = 8.dp)
+            .height(32.dp),
+        text = currentItem.name ?: "",
+        color = Color.Black,
+        style = TextStyle(
+            fontSize = 12.sp,
+
+            ),
+        fontWeight = FontWeight.Bold,
+        maxLines = 2
+    )
+    RatingRow(currentItem = currentItem, textColor = Color.Black)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun EditorsChoiceList(apps: List<AppInfo>) {
     val context = LocalContext.current
+    val cardHeight = 200.dp
     apps.let {
         LazyRow(modifier = Modifier) {
             items(count = it.size, itemContent = { item ->
                 val currentItem = apps.get(item)
 
                 Card(modifier = Modifier
-                    .height(200.dp)
+                    .height(cardHeight)
                     .width(300.dp),
                     onClick = { navigateToDetails(context, currentItem) }) {
 
@@ -177,39 +181,40 @@ private fun EditorsChoiceList(apps: List<AppInfo>) {
                             contentScale = ContentScale.Crop,
                             alpha = 0.7f
                         )
-
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(all = 12.dp)
-                                .align(Alignment.BottomStart)
-                        ) {
-                            Text(
-                                text = currentItem.name ?: "",
-                                color = Color.White,
-                                style = TextStyle(
-                                    fontSize = 12.sp,
-                                ),
-                                fontWeight = FontWeight.Bold
-                            )
-                            RatingRow(
-                                currentItem = currentItem,
-                                textColor = Color.White
-                            )
-                        }
-
-
+                        AppNameAndRatingEditorChoice(currentItem)
                     }
                 }
-
                 Spacer(
                     modifier = Modifier
-                        .height(200.dp)
+                        .height(cardHeight)
                         .width(6.dp)
                 )
             })
         }
 
+    }
+}
+
+@Composable
+private fun BoxScope.AppNameAndRatingEditorChoice(currentItem: AppInfo) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(all = 12.dp)
+            .align(Alignment.BottomStart)
+    ) {
+        Text(
+            text = currentItem.name ?: "",
+            color = Color.White,
+            style = TextStyle(
+                fontSize = 12.sp,
+            ),
+            fontWeight = FontWeight.Bold
+        )
+        RatingRow(
+            currentItem = currentItem,
+            textColor = Color.White
+        )
     }
 }
 

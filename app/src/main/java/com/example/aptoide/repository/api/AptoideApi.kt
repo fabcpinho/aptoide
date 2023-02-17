@@ -1,4 +1,4 @@
-package com.example.aptoide.repository
+package com.example.aptoide.repository.api
 
 import com.example.aptoide.model.AppsDataset
 import io.reactivex.Single
