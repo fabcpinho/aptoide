@@ -54,29 +54,30 @@ fun HomeComposeView(viewModel: HomeViewModel = viewModel()) {
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        AppBar(hasBackNavigation = false, title = stringResource(id = R.string.app_name))
+        AppBar(
+            title = stringResource(id = R.string.app_name),
+            hasBackNavigation = false,
+        )
         Column(
             modifier = Modifier
                 .weight(1f)
                 .background(grayBackground)
                 .padding(8.dp)
         ) {
-
+            // Editors Choice Section
             HeaderWithMore(
                 text = stringResource(id = R.string.editors_choice),
-                modifier = Modifier.padding(
-                    top = 12.dp
-                )
+                modifier = Modifier
+                    .padding(top = 12.dp)
             ) {
                 viewModel.onMoreEditorsSelected()
             }
             EditorsChoiceList(apps)
 
+            // Local Top Section
             HeaderWithMore(
                 text = stringResource(id = R.string.local_top_apps),
-                modifier = Modifier.padding(
-                    top = 24.dp
-                )
+                modifier = Modifier.padding(top = 24.dp)
             ) {
                 viewModel.onMoreLocalTopAppsSelected()
             }
@@ -91,21 +92,28 @@ private fun HeaderWithMore(
     text: String,
     moreClicked: () -> Unit
 ) {
-    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-        HeaderText(text)
-        Spacer(modifier = Modifier.weight(1f))
-        MoreEditorsButton(moreClicked)
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        HeaderText(text = text)
+        Spacer(
+            modifier = Modifier
+                .weight(1f)
+        )
+        MoreEditorsButton(moreClicked = moreClicked)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LocalTopAppsList(apps: List<AppInfo>) {
+private fun LocalTopAppsList(appsList: List<AppInfo>) {
     val context = LocalContext.current
-    apps.let {
+    val cardHeight = 100.dp
+    appsList.let {
         LazyRow(modifier = Modifier) {
-            items(count = it.size, itemContent = { item ->
-                val currentItem = apps.get(item)
+            items(count = it.size, itemContent = { index ->
+                val currentItem = appsList[index]
 
                 Card(
                     modifier = Modifier
@@ -122,7 +130,7 @@ private fun LocalTopAppsList(apps: List<AppInfo>) {
                             painter = rememberAsyncImagePainter(currentItem.icon),
                             contentDescription = null,
                             modifier = Modifier
-                                .height(100.dp)
+                                .height(cardHeight)
                                 .fillMaxWidth()
                                 .clip(shape),
                             contentScale = ContentScale.Crop
@@ -132,7 +140,7 @@ private fun LocalTopAppsList(apps: List<AppInfo>) {
                 }
                 Spacer(
                     modifier = Modifier
-                        .height(200.dp)
+                        .height(cardHeight)
                         .width(6.dp)
                 )
             })
@@ -148,10 +156,7 @@ private fun AppNameAndRatingLocalTopApps(currentItem: AppInfo) {
             .height(32.dp),
         text = currentItem.name ?: "",
         color = Color.Black,
-        style = TextStyle(
-            fontSize = 12.sp,
-
-            ),
+        style = TextStyle(fontSize = 12.sp),
         fontWeight = FontWeight.Bold,
         maxLines = 2
     )
@@ -165,14 +170,15 @@ private fun EditorsChoiceList(apps: List<AppInfo>) {
     val cardHeight = 200.dp
     apps.let {
         LazyRow(modifier = Modifier) {
-            items(count = it.size, itemContent = { item ->
-                val currentItem = apps.get(item)
+            items(count = it.size, itemContent = { index ->
+                val currentItem = apps[index]
 
-                Card(modifier = Modifier
-                    .height(cardHeight)
-                    .width(300.dp),
-                    onClick = { navigateToDetails(context, currentItem) }) {
-
+                Card(
+                    modifier = Modifier
+                        .height(cardHeight)
+                        .width(300.dp),
+                    onClick = { navigateToDetails(context, currentItem) }
+                ) {
                     Box(modifier = Modifier) {
                         Image(
                             painter = rememberAsyncImagePainter(currentItem.graphic),

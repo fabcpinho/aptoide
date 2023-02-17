@@ -18,7 +18,7 @@ class AppsApiRepositoryImpl(private val api: AptoideApi) : AppsApiRepository {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { e ->
-                Log.d("TAG", "doOnError ${e.localizedMessage}")
+                Log.d("AppsApiRepository", "doOnError ${e.localizedMessage}")
             }
     }
 }

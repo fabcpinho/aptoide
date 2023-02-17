@@ -34,8 +34,10 @@ fun DetailsComposeView(viewModel: DetailsViewModel = viewModel()) {
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        AppBar(hasBackNavigation = true, title = stringResource(id = R.string.details))
-
+        AppBar(
+            title = stringResource(id = R.string.details),
+            hasBackNavigation = true
+        )
         Column(
             modifier = Modifier
                 .weight(1f)

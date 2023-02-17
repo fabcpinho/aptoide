@@ -26,7 +26,7 @@ val appsModule = module {
 
 fun provideRetrofit(): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(NetworkConstant.BASE_URL)
+        .baseUrl(NetworkConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()

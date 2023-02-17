@@ -2,7 +2,6 @@ package com.example.aptoide.model
 
 import com.google.gson.annotations.SerializedName
 
-
 data class Data (
 
   @SerializedName("total"  ) var total  : Int?            = null,
