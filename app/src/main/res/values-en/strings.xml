@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">aptoide</string>
-
     <string name="editors_choice">Editors choice</string>
     <string name="local_top_apps">Local top apps</string>
     <string name="more_button">More</string>

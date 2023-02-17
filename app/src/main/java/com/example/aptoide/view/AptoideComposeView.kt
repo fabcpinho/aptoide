@@ -1,4 +1,4 @@
-package com.example.aptoide.ui.theme
+package com.example.aptoide.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,6 +39,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.aptoide.R
 import com.example.aptoide.model.AppInfo
+import com.example.aptoide.ui.theme.aptoideEnd
+import com.example.aptoide.ui.theme.aptoideStart
+import com.example.aptoide.ui.theme.grayBackground
+import com.example.aptoide.ui.theme.more
 import com.example.aptoide.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -196,13 +200,6 @@ fun EditorsChoiceList(viewModel: MainViewModel, apps: List<AppInfo>) {
                                 .fillMaxWidth()
                                 .padding(all = 12.dp)
                                 .align(Alignment.BottomStart)
-                            /*.background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        Gray, White
-                                    )
-                                )
-                            )*/
                         ) {
                             Text(
                                 text = currentItem.name ?: "",
@@ -260,7 +257,7 @@ private fun RatingRow(modifier: Modifier = Modifier, currentItem: AppInfo, textC
 fun MoreEditorsButton(moreClicked: () -> Unit) =
     TextButton(onClick = { moreClicked.invoke() }) {
         Text(
-            text = "MORE",
+            text = stringResource(id = R.string.more_button),
             color = more,
             style = TextStyle(
                 fontSize = 14.sp,
