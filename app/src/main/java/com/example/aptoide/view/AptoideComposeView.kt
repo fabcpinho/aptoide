@@ -39,7 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.aptoide.R
 import com.example.aptoide.model.AppsDataset
-import com.example.aptoide.model.List
+import com.example.aptoide.model.AppInfo
 import com.example.aptoide.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +49,7 @@ fun AptoideComposeView(viewModel: MainViewModel = viewModel()) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         CenterAlignedTopAppBar(
             title = {
@@ -116,9 +116,8 @@ fun HeaderWithMore(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocalTopAppsList(viewModel: MainViewModel, apps: AppsDataset) {
-    val apps = apps.responses?.listApps?.datasets?.all?.data?.list
-    apps?.let {
+fun LocalTopAppsList(viewModel: MainViewModel, apps: List<AppInfo>) {
+    apps.let {
         LazyRow(modifier = Modifier) {
             items(count = it.size, itemContent = { item ->
                 val currentItem = apps.get(item)
@@ -173,8 +172,7 @@ fun LocalTopAppsList(viewModel: MainViewModel, apps: AppsDataset) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditorsChoiceList(viewModel: MainViewModel, apps: AppsDataset) {
-    val apps = apps.responses?.listApps?.datasets?.all?.data?.list
+fun EditorsChoiceList(viewModel: MainViewModel, apps: List<AppInfo>) {
     apps?.let {
         LazyRow(modifier = Modifier) {
             items(count = it.size, itemContent = { item ->
@@ -237,7 +235,7 @@ fun EditorsChoiceList(viewModel: MainViewModel, apps: AppsDataset) {
 }
 
 @Composable
-private fun RatingRow(modifier: Modifier = Modifier, currentItem: List, textColor: Color) {
+private fun RatingRow(modifier: Modifier = Modifier, currentItem: AppInfo, textColor: Color) {
     Row(
         modifier = modifier.padding(top = 4.dp),
         verticalAlignment = Alignment.CenterVertically,

@@ -3,7 +3,7 @@ package com.example.aptoide.model
 import com.google.gson.annotations.SerializedName
 
 
-data class List (
+data class AppInfo (
 
   @SerializedName("id"         ) var id         : Int?              = null,
   @SerializedName("name"       ) var name       : String?           = null,

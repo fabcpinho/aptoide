@@ -1,4 +1,4 @@
-package com.example.aptoide
+package com.example.aptoide.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,6 +15,16 @@ import com.example.aptoide.ui.theme.AptoideTheme
 import com.example.aptoide.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
+/**
+ * General considerations:
+ * - Used MVVM architecture since it handles view state automatically
+ * - Koin for dependency injection
+ * - Jetpack compose for UI
+ * - Applied an alpha on the images on editors choice to provide better visualizatoin of the white text
+ * but it's still not a great design implementation. Opted by keeping it similar to the requirement.
+ *
+ */
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModel<MainViewModel>()
 
@@ -35,16 +45,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     AptoideTheme {
-        Greeting("Android")
+        AptoideComposeView()
     }
 }
