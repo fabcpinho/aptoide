@@ -23,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * but it's still not a great design implementation. Opted by keeping it similar to the requirement.
  * - Resource qualifier for translations added: PT e EN
  * - DetailsView implemented with main app specs
+ * - Unit tests for HomeViewModel using mockk framework (only two tests added for showcase purposes)
  */
 
 /**
