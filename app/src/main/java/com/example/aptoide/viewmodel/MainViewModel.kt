@@ -3,7 +3,6 @@ package com.example.aptoide.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import com.example.aptoide.model.AppInfo
-import com.example.aptoide.model.AppsDataset
 import com.example.aptoide.repository.AppsApiRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -14,7 +13,7 @@ class MainViewModel(private val repository: AppsApiRepository) : ViewModel() {
         repository.getApps()
             .map { dataset ->
                 val list = dataset.responses?.listApps?.datasets?.all?.data?.appInfo
-                val sortedList = list?.sortedBy {
+                val sortedList = list?.sortedByDescending {
                     it.rating
                 }
                 if (!sortedList.isNullOrEmpty())

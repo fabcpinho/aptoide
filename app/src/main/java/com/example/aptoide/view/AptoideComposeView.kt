@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.aptoide.R
-import com.example.aptoide.model.AppsDataset
 import com.example.aptoide.model.AppInfo
 import com.example.aptoide.viewmodel.MainViewModel
 
@@ -173,7 +172,7 @@ fun LocalTopAppsList(viewModel: MainViewModel, apps: List<AppInfo>) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditorsChoiceList(viewModel: MainViewModel, apps: List<AppInfo>) {
-    apps?.let {
+    apps.let {
         LazyRow(modifier = Modifier) {
             items(count = it.size, itemContent = { item ->
                 val currentItem = apps.get(item)
@@ -260,7 +259,14 @@ private fun RatingRow(modifier: Modifier = Modifier, currentItem: AppInfo, textC
 @Composable
 fun MoreEditorsButton(moreClicked: () -> Unit) =
     TextButton(onClick = { moreClicked.invoke() }) {
-        Text(text = "MORE", color = more)
+        Text(
+            text = "MORE",
+            color = more,
+            style = TextStyle(
+                fontSize = 14.sp,
+            ),
+            fontWeight = FontWeight.Bold
+        )
     }
 
 @Composable
