@@ -1,5 +1,6 @@
-package com.example.aptoide.view
+package com.example.aptoide.view.details
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,8 +10,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.aptoide.model.AppInfo
 import com.example.aptoide.ui.theme.AptoideTheme
-import com.example.aptoide.viewmodel.MainViewModel
+import com.example.aptoide.view.details.viewmodel.DetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -23,12 +25,23 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * but it's still not a great design implementation. Opted by keeping it similar to the requirement.
  * - Resource qualifier for translations added: PT e EN
  */
-class MainActivity : ComponentActivity() {
-    private val viewModel by viewModel<MainViewModel>()
+class DetailsActivity : ComponentActivity() {
+    private val viewModel by viewModel<DetailsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getApps()
+
+        if (intent.hasExtra(DETAILS_INTENT)) {
+            val appInfo = if (Build.VERSION.SDK_INT >= 33) {
+                intent.getParcelableExtra(DETAILS_INTENT, AppInfo::class.java)
+            } else {
+                intent.getParcelableExtra<AppInfo>(DETAILS_INTENT)
+            }
+            appInfo?.let {
+                viewModel.presentAppInfo(appInfo)
+            }
+        }
+
         setContent {
             AptoideTheme {
                 // A surface container using the 'background' color from the theme
@@ -36,10 +49,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AptoideComposeView()
+                    DetailsComposeView()
                 }
             }
         }
+    }
+
+    companion object {
+        const val DETAILS_INTENT = "app_details"
     }
 }
 
@@ -47,6 +64,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     AptoideTheme {
-        AptoideComposeView()
+        DetailsComposeView()
     }
 }

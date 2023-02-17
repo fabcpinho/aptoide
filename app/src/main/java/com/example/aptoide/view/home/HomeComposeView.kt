@@ -1,5 +1,7 @@
-package com.example.aptoide.view
+package com.example.aptoide.view.home
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -28,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -43,11 +46,13 @@ import com.example.aptoide.ui.theme.aptoideEnd
 import com.example.aptoide.ui.theme.aptoideStart
 import com.example.aptoide.ui.theme.grayBackground
 import com.example.aptoide.ui.theme.more
-import com.example.aptoide.viewmodel.MainViewModel
+import com.example.aptoide.view.details.DetailsActivity
+import com.example.aptoide.view.details.DetailsActivity.Companion.DETAILS_INTENT
+import com.example.aptoide.view.home.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AptoideComposeView(viewModel: MainViewModel = viewModel()) {
+fun HomeComposeView(viewModel: HomeViewModel = viewModel()) {
     val apps = viewModel.apps.collectAsState().value
 
     Column(
@@ -88,7 +93,7 @@ fun AptoideComposeView(viewModel: MainViewModel = viewModel()) {
             ) {
                 viewModel.onMoreEditorsSelected()
             }
-            EditorsChoiceList(viewModel, apps)
+            EditorsChoiceList(apps)
 
             HeaderWithMore(
                 text = stringResource(id = R.string.local_top_apps),
@@ -98,13 +103,13 @@ fun AptoideComposeView(viewModel: MainViewModel = viewModel()) {
             ) {
                 viewModel.onMoreLocalTopAppsSelected()
             }
-            LocalTopAppsList(viewModel, apps)
+            LocalTopAppsList(apps)
         }
     }
 }
 
 @Composable
-fun HeaderWithMore(
+private fun HeaderWithMore(
     modifier: Modifier = Modifier,
     text: String,
     moreClicked: () -> Unit
@@ -119,7 +124,8 @@ fun HeaderWithMore(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocalTopAppsList(viewModel: MainViewModel, apps: List<AppInfo>) {
+private fun LocalTopAppsList(apps: List<AppInfo>) {
+    val context = LocalContext.current
     apps.let {
         LazyRow(modifier = Modifier) {
             items(count = it.size, itemContent = { item ->
@@ -128,7 +134,7 @@ fun LocalTopAppsList(viewModel: MainViewModel, apps: List<AppInfo>) {
                 Card(
                     modifier = Modifier
                         .width(120.dp),
-                    onClick = { viewModel.onCardClicked() }
+                    onClick = { navigateToDetails(context, currentItem) }
                 ) {
                     val shape = RoundedCornerShape(8.dp)
                     Column(
@@ -175,7 +181,8 @@ fun LocalTopAppsList(viewModel: MainViewModel, apps: List<AppInfo>) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditorsChoiceList(viewModel: MainViewModel, apps: List<AppInfo>) {
+private fun EditorsChoiceList(apps: List<AppInfo>) {
+    val context = LocalContext.current
     apps.let {
         LazyRow(modifier = Modifier) {
             items(count = it.size, itemContent = { item ->
@@ -184,7 +191,7 @@ fun EditorsChoiceList(viewModel: MainViewModel, apps: List<AppInfo>) {
                 Card(modifier = Modifier
                     .height(200.dp)
                     .width(300.dp),
-                    onClick = { viewModel.onCardClicked() }) {
+                    onClick = { navigateToDetails(context, currentItem) }) {
 
                     Box(modifier = Modifier) {
                         Image(
@@ -254,7 +261,7 @@ private fun RatingRow(modifier: Modifier = Modifier, currentItem: AppInfo, textC
 }
 
 @Composable
-fun MoreEditorsButton(moreClicked: () -> Unit) =
+private fun MoreEditorsButton(moreClicked: () -> Unit) =
     TextButton(onClick = { moreClicked.invoke() }) {
         Text(
             text = stringResource(id = R.string.more_button),
@@ -267,7 +274,7 @@ fun MoreEditorsButton(moreClicked: () -> Unit) =
     }
 
 @Composable
-fun HeaderText(text: String) = Text(
+private fun HeaderText(text: String) = Text(
     text = text,
     color = Color.Black,
     style = TextStyle(
@@ -275,3 +282,9 @@ fun HeaderText(text: String) = Text(
     ),
     fontWeight = FontWeight.Bold
 )
+
+private fun navigateToDetails(context: Context, appInfo: AppInfo) {
+    val intent = Intent(context, DetailsActivity::class.java)
+    intent.putExtra(DETAILS_INTENT, appInfo)
+    context.startActivity(intent)
+}

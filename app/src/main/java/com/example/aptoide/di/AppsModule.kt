@@ -3,7 +3,8 @@ package com.example.aptoide.di
 import com.example.aptoide.repository.AppsApiRepository
 import com.example.aptoide.repository.AppsApiRepositoryImpl
 import com.example.aptoide.repository.AptoideApi
-import com.example.aptoide.viewmodel.MainViewModel
+import com.example.aptoide.view.details.viewmodel.DetailsViewModel
+import com.example.aptoide.view.home.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,7 +20,8 @@ val appsModule = module {
             api = get()
         )
     }
-    viewModel { MainViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
+    viewModel { DetailsViewModel() }
 }
 
 fun provideRetrofit(): Retrofit {

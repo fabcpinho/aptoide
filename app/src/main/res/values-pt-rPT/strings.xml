@@ -4,4 +4,9 @@
     <string name="editors_choice">Escolha dos editores</string>
     <string name="local_top_apps">Top local</string>
     <string name="more_button">Mais</string>
+    <string name="name">Nome</string>
+    <string name="package_name">Nome do pacote</string>
+    <string name="downloads">Downloads</string>
+    <string name="update">Última Atualizaçao</string>
+    <string name="rating">Classificaçao</string>
 </resources>

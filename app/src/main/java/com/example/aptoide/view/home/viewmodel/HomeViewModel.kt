@@ -1,4 +1,4 @@
-package com.example.aptoide.viewmodel
+package com.example.aptoide.view.home.viewmodel
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import com.example.aptoide.repository.AppsApiRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("CheckResult")
-class MainViewModel(private val repository: AppsApiRepository) : ViewModel() {
+class HomeViewModel(private val repository: AppsApiRepository) : ViewModel() {
     val apps = MutableStateFlow(listOf(AppInfo()))
     fun getApps() {
         repository.getApps()
@@ -28,9 +28,5 @@ class MainViewModel(private val repository: AppsApiRepository) : ViewModel() {
 
     fun onMoreLocalTopAppsSelected() {
         // Would navigate to a view with all Local Top apps
-    }
-
-    fun onCardClicked() {
-        // Would navigate to app info
     }
 }

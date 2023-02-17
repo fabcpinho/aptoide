@@ -1,8 +1,10 @@
 package com.example.aptoide.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class AppInfo (
 
   @SerializedName("id"         ) var id         : Int?              = null,
@@ -25,4 +27,4 @@ data class AppInfo (
   @SerializedName("graphic"    ) var graphic    : String?           = null,
   @SerializedName("uptype"     ) var uptype     : String?           = null
 
-)
+) : Parcelable
