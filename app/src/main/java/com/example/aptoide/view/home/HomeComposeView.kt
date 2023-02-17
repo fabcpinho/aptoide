@@ -16,18 +16,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -35,22 +32,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.aptoide.R
 import com.example.aptoide.model.AppInfo
-import com.example.aptoide.ui.theme.aptoideEnd
-import com.example.aptoide.ui.theme.aptoideStart
 import com.example.aptoide.ui.theme.grayBackground
 import com.example.aptoide.ui.theme.more
+import com.example.aptoide.view.appbar.AppBar
 import com.example.aptoide.view.details.DetailsActivity
 import com.example.aptoide.view.details.DetailsActivity.Companion.DETAILS_INTENT
 import com.example.aptoide.view.home.viewmodel.HomeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeComposeView(viewModel: HomeViewModel = viewModel()) {
     val apps = viewModel.apps.collectAsState().value
@@ -59,25 +53,7 @@ fun HomeComposeView(viewModel: HomeViewModel = viewModel()) {
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        CenterAlignedTopAppBar(
-            title = {
-                Text(text = "Aptoide", textAlign = TextAlign.Center)
-            },
-            modifier = Modifier
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            aptoideStart, aptoideEnd
-                        )
-                    )
-                ),
-            colors = TopAppBarDefaults.smallTopAppBarColors(
-                containerColor = Color.Transparent,
-                navigationIconContentColor = Color.White,
-                titleContentColor = Color.White
-            ),
-        )
-
+        AppBar(hasBackNavigation = false, title = stringResource(id = R.string.app_name))
         Column(
             modifier = Modifier
                 .weight(1f)

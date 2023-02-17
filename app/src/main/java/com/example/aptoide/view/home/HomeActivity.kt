@@ -19,15 +19,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * - Used MVVM architecture since it handles view state automatically
  * - Koin for dependency injection
  * - Jetpack compose for UI
- * - Applied an alpha on the images on editors choice to provide better visualizatoin of the white text
+ * - Applied an alpha on the images on editors choice to provide better visualization of the white text
  * but it's still not a great design implementation. Opted by keeping it similar to the requirement.
  * - Resource qualifier for translations added: PT e EN
- * - DetailsView implemented with main specs
+ * - DetailsView implemented with main app specs
  */
 
 /**
  * Possible improvements:
- * - Use jetpack navigation framework to navigate between views
+ * - Use jetpack navigation framework to navigate between views and inject navigation on viewModel
  *
  */
 class MainActivity : ComponentActivity() {

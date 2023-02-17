@@ -15,16 +15,6 @@ import com.example.aptoide.ui.theme.AptoideTheme
 import com.example.aptoide.view.details.viewmodel.DetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-/**
- * General considerations:
- * - Used MVVM architecture since it handles view state automatically
- * - Koin for dependency injection
- * - Jetpack compose for UI
- * - Applied an alpha on the images on editors choice to provide better visualizatoin of the white text
- * but it's still not a great design implementation. Opted by keeping it similar to the requirement.
- * - Resource qualifier for translations added: PT e EN
- */
 class DetailsActivity : ComponentActivity() {
     private val viewModel by viewModel<DetailsViewModel>()
 
@@ -35,7 +25,7 @@ class DetailsActivity : ComponentActivity() {
             val appInfo = if (Build.VERSION.SDK_INT >= 33) {
                 intent.getParcelableExtra(DETAILS_INTENT, AppInfo::class.java)
             } else {
-                intent.getParcelableExtra<AppInfo>(DETAILS_INTENT)
+                intent.getParcelableExtra(DETAILS_INTENT)
             }
             appInfo?.let {
                 viewModel.presentAppInfo(appInfo)

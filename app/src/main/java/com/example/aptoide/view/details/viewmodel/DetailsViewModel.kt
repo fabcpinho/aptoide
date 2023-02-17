@@ -11,5 +11,4 @@ class DetailsViewModel : ViewModel() {
     fun presentAppInfo(content: AppInfo){
         appInfo.value = content
     }
-
 }
